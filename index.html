@@ -1,18 +1,85 @@
 <!doctype html>
-<html lang="ca"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<html lang="ca">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <link rel="icon" type="image/png" href="favicon.png">
-<title>Indicadors de demanda potencial d'habitatge · APCE</title>
+<title>Indicadors de demanda potencial d'habitatge a Catalunya · APCE</title>
+<meta name="description" content="Informe estadístic de l'APCE: índex de demanda potencial d'habitatge als 212 municipis catalans de més de 5.000 habitants. Nota de conjuntura de novembre 2026.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@300;400;600&family=Barlow:wght@400;600&display=swap" rel="stylesheet">
 <style>
-body{margin:0;font-family:Arial,Helvetica,sans-serif;background:#fff;color:#1F2E30;display:flex;min-height:100vh;align-items:center;justify-content:center}
-main{max-width:640px;padding:32px 20px;text-align:center}
-.logo{display:block;margin:0 auto 26px;width:230px;max-width:70%;height:auto}
-h1{font-weight:300;text-transform:uppercase;letter-spacing:.02em;color:#6C7A7C;font-size:clamp(1.6rem,1.1rem + 2vw,2.4rem);margin:0 0 6px}
-p{color:#226A70;margin:0 0 30px}
-a{display:inline-block;margin:6px;padding:12px 26px;border-radius:999px;background:#226A70;color:#fff;text-decoration:none;font-weight:700}
-a:hover{background:#65C8D0;color:#0B3A3E}
-</style></head><body><main>
-<img class="logo" src="APCE_mod_transparent.png" alt="APCE · Associació de Promotors de Catalunya" width="350" height="149">
-<h1>Indicadors de demanda potencial d'habitatge</h1>
-<p>Edició 2026 · 212 municipis de Catalunya</p>
-<a href="ca/">Català</a><a href="es/">Castellano</a>
-</main></body></html>
+:root{--petroli:#226A70;--petroli-fosc:#174C51;--cian:#65C8D0;--cian-clar:#A8DDE2;--tinta:#1F2E30;--gris:#5C6E71;--fons:#F4F9FA}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{font-family:Barlow,Arial,Helvetica,sans-serif;color:var(--tinta);background:#fff;min-height:100vh;display:flex;flex-direction:column}
+.topbar{display:flex;align-items:center;justify-content:space-between;padding:18px clamp(16px,5vw,64px);background:#fff}
+.topbar img{height:92px;width:auto;display:block}
+.topbar a.web{font-size:14px;color:var(--petroli);text-decoration:none;font-weight:600;letter-spacing:.02em}
+.topbar a.web:hover{color:var(--cian)}
+.hero{position:relative;overflow:hidden;background:var(--petroli);color:#fff;padding:clamp(56px,9vw,110px) clamp(16px,5vw,64px) clamp(60px,9vw,104px)}
+.hero::before{content:"";position:absolute;inset:0;
+background:repeating-linear-gradient(135deg,rgba(255,255,255,.045) 0 1px,transparent 1px 22px);pointer-events:none}
+.hero::after{content:"";position:absolute;right:clamp(16px,5vw,64px);top:0;width:clamp(70px,11vw,150px);height:clamp(70px,11vw,150px);background:var(--cian);opacity:.95}
+.hero .barra{position:absolute;left:0;top:clamp(56px,9vw,110px);width:clamp(8px,1.2vw,16px);height:clamp(96px,13vw,170px);background:var(--cian)}
+.hero .dins{position:relative;max-width:980px;z-index:1}
+.hero .marca-aigua{position:absolute;right:clamp(16px,6vw,96px);bottom:clamp(40px,7vw,90px);width:clamp(220px,26vw,350px);height:auto;filter:invert(1);opacity:.13;pointer-events:none;user-select:none}
+.eyebrow{font-family:"Barlow Semi Condensed",Arial,sans-serif;font-weight:600;font-size:clamp(13px,1.1vw,15px);letter-spacing:.18em;text-transform:uppercase;color:var(--cian-clar);margin:0 0 18px}
+h1{font-family:"Barlow Semi Condensed",Arial,sans-serif;font-weight:300;text-transform:uppercase;letter-spacing:.015em;line-height:1.02;margin:0;
+font-size:clamp(2.1rem,1.2rem + 4.6vw,5rem);overflow-wrap:break-word;hyphens:manual}
+h1 span{display:block;color:var(--cian);font-weight:400;text-transform:none;letter-spacing:.01em;font-size:.62em;margin-top:.28em}
+.lead{max-width:640px;font-size:clamp(16px,1.25vw,18.5px);line-height:1.6;color:#E3F1F2;margin:26px 0 34px}
+.botons{display:flex;flex-wrap:wrap;gap:12px}
+.botons a{display:inline-flex;align-items:center;gap:10px;padding:14px 28px;border-radius:999px;text-decoration:none;font-weight:600;font-size:16px;transition:background .15s,color .15s,border-color .15s}
+.botons a.prim{background:#fff;color:var(--petroli)}
+.botons a.prim:hover{background:var(--cian);color:var(--petroli-fosc)}
+.botons a.sec{border:1.5px solid rgba(255,255,255,.75);color:#fff}
+.botons a.sec:hover{background:rgba(255,255,255,.12);border-color:#fff}
+.botons a span{font-size:18px;line-height:1}
+.xifres{display:grid;grid-template-columns:repeat(3,1fr);gap:0;max-width:980px;margin:-38px auto 0;position:relative;z-index:2;background:#fff;
+box-shadow:0 10px 30px -14px rgba(23,76,81,.35);border-radius:10px;width:calc(100% - 2*clamp(16px,5vw,64px))}
+.xifra{padding:24px 26px;border-left:1px solid #E1ECED}
+.xifra:first-child{border-left:none}
+.xifra b{display:block;font-family:"Barlow Semi Condensed",Arial,sans-serif;font-weight:600;font-size:clamp(28px,2.6vw,38px);color:var(--petroli);line-height:1}
+.xifra small{display:block;margin-top:6px;font-size:14px;color:var(--gris);line-height:1.4}
+main{flex:1}
+footer{margin-top:56px;padding:22px clamp(16px,5vw,64px);border-top:3px solid var(--cian);font-size:13px;color:var(--gris);display:flex;flex-wrap:wrap;gap:8px 24px;justify-content:space-between}
+footer a{color:var(--petroli);text-decoration:none}
+footer a:hover{text-decoration:underline}
+a:focus-visible{outline:2px solid var(--cian);outline-offset:3px}
+@media (max-width:640px){.xifres{grid-template-columns:1fr}.xifra{border-left:none;border-top:1px solid #E1ECED}.xifra:first-child{border-top:none}
+.topbar img{height:62px}.hero .marca-aigua{display:none}.topbar a.web{display:none}}
+</style>
+</head>
+<body>
+<header class="topbar">
+  <a href="https://apcebcn.cat/" aria-label="APCE · Associació de Promotors de Catalunya"><img src="APCE_mod_transparent.png" alt="APCE · Associació de Promotors de Catalunya" width="350" height="149"></a>
+  <a class="web" href="https://apcebcn.cat/">apcebcn.cat</a>
+</header>
+<main>
+  <section class="hero">
+    <span class="barra" aria-hidden="true"></span>
+    <img class="marca-aigua" src="APCE_mod_transparent.png" alt="" aria-hidden="true" width="350" height="149">
+    <div class="dins">
+      <p class="eyebrow">Informe estadístic · Nota de conjuntura novembre 2026</p>
+      <h1>Indicadors de demanda potencial d'habitatge<span>a Catalunya</span></h1>
+      <p class="lead">Índex que compara els 212 municipis catalans de més de 5.000 habitants a partir de la demografia, la mobilitat residencial, la situació socioeconòmica i el mercat d'habitatge. Mapes, rànquings i la fitxa de cada municipi.</p>
+      <div class="botons">
+        <a class="prim" href="ca/">Consulta l'informe <span aria-hidden="true">›</span></a>
+        <a class="sec" href="es/" lang="es">Versión en castellano <span aria-hidden="true">›</span></a>
+      </div>
+    </div>
+  </section>
+  <section class="xifres" aria-label="Xifres clau">
+    <div class="xifra"><b>212</b><small>municipis de més de 5.000 habitants</small></div>
+    <div class="xifra"><b>90%</b><small>de la població de Catalunya</small></div>
+    <div class="xifra"><b>16</b><small>indicadors agrupats en 4 blocs</small></div>
+  </section>
+</main>
+<footer>
+  <span>© 2026 APCE · Associació de Promotors de Catalunya</span>
+  <a href="https://apcebcn.cat/">apcebcn.cat</a>
+</footer>
+</body>
+</html>
